@@ -87,14 +87,27 @@ class Evaluate:
       The result of evaluated postfix expression.
     """
     # Write your code here
+    stack=[]
     for i in expression:
-      if i.isdigit():
-        self.push(i)
-      else:
-        val1=self.pop()
-        val2=self.pop()
-        self.push(str(eval(val2+i+val1)))
-        return int(self.pop())
+      if i.isnumeric():
+        stack.append(int(i))
+      if len(stack) >= 2:
+        if i == '+':
+          stack[-2] = stack[-2] + stack[-1]
+          stack.pop()
+        elif i == '-':
+          stack[-2] = stack[-2] - stack[-1]
+          stack.pop()
+        elif i == '*':
+          stack[-2] = stack[-2] * stack[-1]
+          stack.pop()
+        elif i == '/':
+          stack[-2] = stack[-2] / stack[-1]
+          stack.pop()
+        elif i == '^':
+          stack[-2] = stack[-2] ^ stack[-1]
+          stack.pop()
+    return int(stack[-1])
     
 
 
